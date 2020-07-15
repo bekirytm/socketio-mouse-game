@@ -1,0 +1,14 @@
+{
+  "name": "socketio-mouse-game",
+  "description": "",
+  "main": "",
+  "authors": [
+    "bekirytm <bekir.yetim.06@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/bekirytm/socketio-mouse-game",
+  "dependencies": {
+    "angular": "^1.8.0",
+    "semantic": "^2.4.1"
+  }
+}
