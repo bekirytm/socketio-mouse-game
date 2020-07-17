@@ -1,7 +1,7 @@
 app.controller('indexController' , ['$scope' , 'indexFactory' , ($scope , indexFactory) => {
 
     $scope.messages = [ ];
-
+    $scope.players = { };
 
     $scope.init = () => {       //kullanıcıdan isim alma ve bağlantıyı sağlama
         const username = prompt('please enter username');
@@ -23,6 +23,12 @@ app.controller('indexController' , ['$scope' , 'indexFactory' , ($scope , indexF
         indexFactory.connectSocket('http://localhost:3000' , connectionOptions)
             .then((socket) => {
                 socket.emit('newUser' , { username });
+
+                socket.on('initPLayers' , (players) => {        //Kişi pozisyonu
+                    $scope.players = players;
+                    $scope.$apply();
+                    console.log(players);
+                });
 
                 socket.on('newUser' , (data) => {
                     const messageData = {

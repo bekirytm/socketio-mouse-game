@@ -20,15 +20,15 @@ io.on('connection' , (socket) => {
 
         const userData = Object.assign(data,defaultData);
         users[socket.id] = userData;
-        console.log(users);
-        socket.broadcast.emit('newUser' , users[socket.id]);
 
+        socket.broadcast.emit('newUser' , users[socket.id]);
+        socket.emit('initPLayers' , users);
     });
 
     socket.on('disconnect' , () => {                            //Kullanıcı Ayrıldı.
         socket.broadcast.emit('disUser' , users[socket.id]);
         delete users[socket.id];
-        console.log(users);
+
     });
 });
 
