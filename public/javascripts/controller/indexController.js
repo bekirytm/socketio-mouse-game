@@ -92,6 +92,13 @@ app.controller('indexController' , ['$scope' , 'indexFactory' , ($scope , indexF
                     };
                     $scope.messages.push(messageData);
                     $scope.message = '';
+                    socket.emit('newMessage' , messageData);
+
+                    setTimeout(() => {
+                        const element = document.getElementById('chat-area');
+                        element.scrollTop = element.scrollHeight;
+                    });
+
                 }
 
             }).catch((err) => {
