@@ -13,6 +13,13 @@ app.controller('indexController' , ['$scope' , 'indexFactory' , ($scope , indexF
         }
     }
 
+    function scrollTop() {
+        setTimeout(() => {
+            const element = document.getElementById('chat-area');
+            element.scrollTop = element.scrollHeight;
+        });
+    }
+
     function initSocket(username) {
 
         const connectionOptions = {
@@ -92,14 +99,18 @@ app.controller('indexController' , ['$scope' , 'indexFactory' , ($scope , indexF
                     };
                     $scope.messages.push(messageData);
                     $scope.message = '';
-                    socket.emit('newMessage' , messageData);
+                    socket.emit('newMessage' , messageData);    //Mesajı server'a gönderme
 
-                    setTimeout(() => {
-                        const element = document.getElementById('chat-area');
-                        element.scrollTop = element.scrollHeight;
-                    });
-
+                    scrollTop();
                 }
+
+                socket.on('newMessage' , (data) => {    //Mesajı herkese gönderme gösterme
+                    $scope.messages.push(data);
+                    $scope.$apply();
+
+                    scrollTop();
+                });
+
 
             }).catch((err) => {
             console.log(err);

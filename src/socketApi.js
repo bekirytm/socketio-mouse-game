@@ -40,6 +40,11 @@ io.on('connection' , (socket) => {
         })
     });
 
+    socket.on('newMessage' , (data) => {    //Birinin gönderdiği mesajı alıp herkese gönderme
+        console.log(data);
+        socket.broadcast.emit('newMessage' , data);
+    });
+
     socket.on('disconnect' , () => {                            //Kullanıcı Ayrıldı.
         socket.broadcast.emit('disUser' , users[socket.id]);
         delete users[socket.id];
