@@ -42,7 +42,8 @@ io.on('connection' , (socket) => {
 
     socket.on('newMessage' , (data) => {    //Birinin gönderdiği mesajı alıp herkese gönderme
         console.log(data);
-        socket.broadcast.emit('newMessage' , data);
+        const messageData = Object.assign({ socketId: socket.id } , data);
+        socket.broadcast.emit('newMessage' , messageData);
     });
 
     socket.on('disconnect' , () => {                            //Kullanıcı Ayrıldı.
